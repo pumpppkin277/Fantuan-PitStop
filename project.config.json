@@ -2,7 +2,7 @@
   "description": "饭团 PitStop 微信小程序",
   "miniprogramRoot": "miniprogram/",
   "projectname": "饭团PitStop",
-  "appid": "touristappid",
+  "appid": "wx1a28ffee3cebfa63",
   "setting": {
     "urlCheck": true,
     "es6": true,
@@ -11,7 +11,8 @@
     "minified": true,
     "coverView": true,
     "showShadowRootInWxmlPanel": true,
-    "packNpmManually": false
+    "packNpmManually": false,
+    "minifyWXML": true
   },
   "compileType": "miniprogram",
   "libVersion": "trial",
