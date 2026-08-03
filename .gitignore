@@ -1,0 +1,14 @@
+.DS_Store
+project.private.config.json
+miniprogram_npm/
+node_modules/
+dist/
+output.json
+output.jsonl
+*.log
+.idea/
+.vscode/
+
+# 原始品牌与卡片素材保留在本地/云存储，不放入公开仓库。
+assets/*
+!assets/README.md

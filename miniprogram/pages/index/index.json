@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "Fantuan PitStop",
+  "navigationBarBackgroundColor": "#FAF6E8",
+  "usingComponents": {
+    "cloud-tip-modal": "/components/cloudTipModal/index"
+  }
+}

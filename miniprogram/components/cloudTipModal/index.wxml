@@ -1,0 +1,36 @@
+<view class="container full_screen_container">
+  
+  <view class="opening_section">
+    <view class="main_stage">
+      <image 
+        class="main_combined_img {{isBoxOpen ? '' : 'glow_breathing'}} {{isBoxShaking ? 'box_shaking' : ''}} {{isFlashing ? 'flash_white' : ''}}" 
+        src="{{isBoxOpen ? boxOpenUrl : boxClosedUrl}}"  
+        mode="widthFix"
+        bindtap="handleOpenSequence"
+      ></image>
+    </view>
+
+    <text class="tap_tip_text" bindtap="handleOpenSequence">
+      {{isBoxOpen ? '好运已开启' : '点击开启今日好运'}}
+    </text>
+  </view>
+
+  <view class="modal_mask" wx:if="{{showBox}}" bindtap="closeBox">
+    <view class="modal_content" catchtap="preventBubble">
+      <view class="treasure_card">
+        <text class="treasure_text">{{currentTreasure.text}}</text>
+        <image 
+          wx:if="{{currentTreasure.image_url}}" 
+          class="treasure_image" 
+          src="{{currentTreasure.image_url}}" 
+          mode="widthFix"
+        ></image> 
+        <view class="treasure_footer">
+          <view class="treasure_tag"># {{currentTreasure.category || '未分类'}}</view> 
+          <view class="close_link" bindtap="closeBox">收起</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

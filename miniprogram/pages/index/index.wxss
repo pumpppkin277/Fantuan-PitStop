@@ -1,0 +1,177 @@
+/**index.wxss**/
+
+.full_screen_container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #FAF6E8;
+  overflow: hidden;
+}
+
+.opening_section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.main_stage {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  width: 600rpx;
+  height: 600rpx;
+}
+
+.main_combined_img {
+  width: 500rpx;
+  height: auto;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+/* 呼吸动画 */
+.glow_breathing {
+  animation: breathingGlow 3s ease-in-out infinite;
+}
+
+@keyframes breathingGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 10rpx rgba(255, 223, 137, 0.4));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 40rpx rgba(255, 223, 137, 0.7));
+    transform: scale(1.03);
+  }
+}
+
+/* 瞬间闪光 */
+.flash_white {
+  animation: instantFlash 0.2s ease-out forwards;
+}
+
+@keyframes instantFlash {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(3) drop-shadow(0 0 60rpx #ffffff); transform: scale(1.1); }
+  100% { filter: brightness(1); }
+}
+
+/* 剧烈抖动 */
+.box_shaking {
+  animation: shake 0.1s infinite;
+}
+
+@keyframes shake {
+  0% { transform: translate(4px, 4px); }
+  50% { transform: translate(-4px, -4px); }
+  100% { transform: translate(4px, 4px); }
+}
+
+/* 完美居中的气泡 */
+.tap_tip_text {
+  margin-top: 60rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #5D4037;
+  letter-spacing: 2rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rpx 50rpx 0 50rpx;
+  min-height: 100rpx;
+  box-sizing: border-box;
+  background: #FFFFFF;
+  border-radius: 50rpx;
+  box-shadow: 0 8rpx 24rpx rgba(93, 64, 55, 0.12), 
+              0 2rpx 4rpx rgba(0, 0, 0, 0.04);
+  border: 2rpx solid #E0D7C6;
+  transform: rotate(-1deg); 
+  transition: all 0.2s ease;
+}
+
+.tap_tip_text:active {
+  transform: scale(0.96) rotate(-1deg);
+  background-color: #FDFBF5;
+}
+
+/* 弹窗遮罩 */
+.modal_mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  backdrop-filter: blur(10rpx);
+}
+
+/* 弹窗内容容器 */
+.modal_content {
+  width: 80%;
+  background: #fff; 
+  border-radius: 40rpx;
+  overflow: hidden;
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* 核心修改：统一卡片高度的容器布局 */
+.treasure_card { 
+  padding: 50rpx; 
+  text-align: center; 
+  display: flex;
+  flex-direction: column;
+  min-height: 950rpx;        /* 关键：设置统一的最小高度 [cite: 44] */
+  box-sizing: border-box;
+}
+
+.treasure_text {
+  font-size: 34rpx;
+  color: #444;
+  line-height: 1.8;      /* 增加行高，提升阅读舒适度 */
+  display: block;        /* 改回块级，利于多行排版 */
+  margin-bottom: 30rpx;
+  
+  /* 核心修复属性 */
+  white-space: pre-wrap; /* 关键：强制保留换行符并自动折行 */
+  text-align: center;    /* 保持居中对齐 */
+  word-break: break-all; /* 防止长英文单词撑破布局 */
+  
+  min-height: 180rpx;    /* 稍微调高，给多出的行预留空间 */
+  padding: 0 30rpx;      /* 增加左右间距，防止文字贴边 */
+}
+
+/* 核心修改：图片自动占据剩余空间 */
+.treasure_image { 
+  width: 100%; 
+  border-radius: 20rpx; 
+  margin-bottom: 30rpx; 
+  flex: 1;                   /* 自动拉伸占据中间位置 */
+  height: 0;                 /* 配合 flex:1 使用 */
+  object-fit: contain;       /* 保证图片比例不失真 */
+}
+
+/* 核心修改：强制页脚贴底 */
+.treasure_footer { 
+  border-top: 1rpx solid #eee; 
+  padding-top: 30rpx; 
+  display: flex; 
+  justify-content: space-between; 
+  margin-top: auto;          /* 强制推向容器最底部  */
+}
+
+.treasure_tag { color: #999; font-size: 24rpx; }
+.close_link { color: #8B7E66; font-weight: bold; font-size: 26rpx; }

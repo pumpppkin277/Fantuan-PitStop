@@ -1,0 +1,43 @@
+<view class="container full_screen_container">
+  
+  <view class="opening_section">
+    <view class="main_stage">
+      <image 
+        class="main_combined_img {{isBoxOpen ? '' : 'glow_breathing'}} {{isBoxShaking ? 'box_shaking' : ''}} {{isFlashing ? 'flash_white' : ''}}" 
+        src="{{isBoxOpen ? boxOpenUrl : boxClosedUrl}}"  
+        mode="widthFix"
+        bindtap="handleOpenSequence"
+      ></image>
+    </view>
+
+    <view class="tap_tip_text" bindtap="handleOpenSequence" wx:if="{{!isFirstVisit}}">
+      {{isBoxOpen ? '嘘，正在听他们的悄悄话...' : '叩叩百宝箱，去看看有什么留给你的话'}}
+    </view>
+  </view>
+
+  <view class="modal_mask" wx:if="{{showBox}}" bindtap="closeBox">
+    <view class="modal_content" catchtap="preventBubble">
+      <view class="treasure_card">
+        <text class="treasure_text">{{currentTreasure.text}}</text>
+        <image 
+          wx:if="{{currentTreasure.image_url}}" 
+          class="treasure_image" 
+          src="{{currentTreasure.image_url}}" 
+          mode="widthFix"
+        ></image> 
+    
+        <view class="treasure_footer">
+          <view class="treasure_tag">
+            # {{isFirstVisit ? currentTreasure.role : (currentTreasure.category || '未分类')}}
+          </view> 
+          
+          <view wx:if="{{isFirstVisit}}" class="close_link" bindtap="nextTourStep">
+            {{tourStep < tourCards.length ? 'NEXT' : '开始收听'}}
+          </view>
+          <view wx:else class="close_link" bindtap="closeBox">收起</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

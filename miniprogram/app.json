@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "window": {
+    "backgroundColor": "#FAF6E8",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FAF6E8",
+    "navigationBarTitleText": "Fantuan PitStop",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents"
+}
