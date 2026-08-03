@@ -29,8 +29,6 @@ Page({
   },
 
   onLoad: function() {
-    this.checkDailyLimit(); // 检查每日次数
-
     const tourCount = wx.getStorageSync('tourCount') || 0;
     if (tourCount < 5) {
       this.setData({ isFirstVisit: true });
@@ -62,35 +60,8 @@ Page({
     }
   },
 
-  // 核心逻辑：检查并重置每日限制
-  checkDailyLimit: function() {
-    const today = new Date().toDateString(); // 获取当前日期字符串
-    const lastDate = wx.getStorageSync('lastDate');
-
-    if (lastDate !== today) {
-      // 如果日期变了，重置点击次数和已看卡片列表
-      wx.setStorageSync('lastDate', today);
-      wx.setStorageSync('dailyClicks', 0);
-      wx.setStorageSync('shownIds', []);
-    }
-  },
-
   handleOpenSequence: function() {
-    if (this.data.isBoxOpen || this.data.isFlashing) return; 
-
-    // 如果不是导览模式，需要检查每日限制
-    if (!this.data.isFirstVisit) {
-      const dailyClicks = wx.getStorageSync('dailyClicks') || 0;
-      if (dailyClicks >= 3) {
-        wx.showModal({
-          title: '休息时间到 💤',
-          content: '今天的补给已经装满了，明天再来听新耳语吧！',
-          showCancel: false,
-          confirmColor: '#8B7E66'
-        });
-        return;
-      }
-    }
+    if (this.data.isBoxOpen || this.data.isFlashing) return;
 
     this.setData({ isFlashing: true, isBoxShaking: true }); 
     if (wx.vibrateShort) wx.vibrateShort({ type: 'medium' });
@@ -126,32 +97,25 @@ Page({
       this.closeBox();
       return;
     }
-    const shownIds = wx.getStorageSync('shownIds') || [];
-    
-    // 过滤掉今天已经看过的卡片
-    const available = all.filter(item => !shownIds.includes(item.id_code));
+    let shownIds = wx.getStorageSync('shownIds') || [];
+    let available = all.filter(item => !shownIds.includes(item.id_code));
 
-    if (available.length > 0) {
-      const randomIndex = Math.floor(Math.random() * available.length);
-      const selected = available[randomIndex];
-
-      // 更新今日已看列表
-      shownIds.push(selected.id_code);
-      wx.setStorageSync('shownIds', shownIds);
-
-      // 更新今日点击次数
-      let clicks = wx.getStorageSync('dailyClicks') || 0;
-      wx.setStorageSync('dailyClicks', clicks + 1);
-
-      this.setData({
-        currentTreasure: selected,
-        showBox: true
-      }); 
-    } else {
-      // 理论上如果卡片够多不会走到这一步，但加上防错
-      wx.showToast({ title: '暂时没有新耳语啦', icon: 'none' });
-      this.closeBox();
+    // 全部看完后自动开启新一轮，抽取次数不设上限。
+    if (available.length === 0) {
+      shownIds = [];
+      available = all;
     }
+
+    const randomIndex = Math.floor(Math.random() * available.length);
+    const selected = available[randomIndex];
+
+    shownIds.push(selected.id_code);
+    wx.setStorageSync('shownIds', shownIds);
+
+    this.setData({
+      currentTreasure: selected,
+      showBox: true
+    });
   },
 
   closeBox: function() {
