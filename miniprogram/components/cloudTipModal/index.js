@@ -9,9 +9,9 @@ Page({
     isFlashing: false, 
     
     // 闭合状态：猫趴在宝箱上的合并图
-    boxClosedUrl: 'cloud://cloud1-0g1pkke1764ea351.636c-cloud1-0g1pkke1764ea351-1418310788/开屏图_透明底.png',
+    boxClosedUrl: 'cloud://cloud1-d5gf098vz407502b3.636c-cloud1-d5gf098vz407502b3-1418310788/开屏图_透明底.png',
     // 开启状态：开启的宝箱图
-    boxOpenUrl: 'cloud://cloud1-0g1pkke1764ea351.636c-cloud1-0g1pkke1764ea351-1418310788/百宝箱-打开-浅色底.png', 
+    boxOpenUrl: 'cloud://cloud1-d5gf098vz407502b3.636c-cloud1-d5gf098vz407502b3-1418310788/百宝箱-打开-浅色底.png',
   },
 
   onLoad: function() {
